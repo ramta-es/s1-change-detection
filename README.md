@@ -29,7 +29,7 @@ template behind the fixed-scope "Sentinel-1 change-detection pipeline" package I
 pip install -e ".[dev]"
 make demo                      # synthetic Sentinel-1-like scenes on a real AOI near Valencia
 open runs/demo/preview.png
-pytest -q                      # 30 tests, ~20 s
+pytest -q                      # 30 tests, a few seconds
 ```
 
 Or through the API:
