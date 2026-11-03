@@ -1,0 +1,35 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      S1CD_DATABASE_URL: postgresql://s1cd:s1cd@db:5432/s1cd
+      S1CD_RUNS_DIR: /data/runs
+    volumes:
+      - runs:/data/runs
+      - openeo-auth:/home/app/.local/share/openeo-python-client   # cached refresh token for the device-code flow
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: s1cd
+      POSTGRES_PASSWORD: s1cd
+      POSTGRES_DB: s1cd
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U s1cd -d s1cd"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  runs:
+  pgdata:
+  openeo-auth:

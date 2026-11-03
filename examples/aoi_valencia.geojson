@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "horta-sud",
+      "properties": {"name": "L'Horta Sud, Valencia (DANA floods, 29 Oct 2024)"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-0.48, 39.36], [-0.33, 39.36], [-0.33, 39.46], [-0.48, 39.46], [-0.48, 39.36]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "albufera-north",
+      "properties": {"name": "North of the Albufera"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-0.40, 39.30], [-0.30, 39.30], [-0.30, 39.36], [-0.40, 39.36], [-0.40, 39.30]]]
+      }
+    }
+  ]
+}

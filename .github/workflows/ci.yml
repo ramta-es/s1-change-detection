@@ -1,0 +1,30 @@
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff check app tests
+      - run: pytest -q
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t s1-change-detection .
+      - run: |
+          docker run -d --name api -p 8000:8000 -e S1CD_DEFAULT_BACKEND=synthetic s1-change-detection
+          for i in $(seq 1 30); do curl -sf http://localhost:8000/health && break; sleep 1; done
+          curl -sf -X POST "http://localhost:8000/change?wait=true" \
+            -H "content-type: application/json" \
+            -d @examples/request_synthetic.json | python -c "import sys,json; r=json.load(sys.stdin); assert r['status']=='completed', r; print('changed km2', r['changed_area_km2'])"

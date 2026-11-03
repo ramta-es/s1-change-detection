@@ -1,0 +1,94 @@
+{
+  "aoi": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": "horta-sud",
+        "properties": {
+          "name": "L'Horta Sud, Valencia (DANA floods, 29 Oct 2024)"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -0.48,
+                39.36
+              ],
+              [
+                -0.33,
+                39.36
+              ],
+              [
+                -0.33,
+                39.46
+              ],
+              [
+                -0.48,
+                39.46
+              ],
+              [
+                -0.48,
+                39.36
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "albufera-north",
+        "properties": {
+          "name": "North of the Albufera"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -0.4,
+                39.3
+              ],
+              [
+                -0.3,
+                39.3
+              ],
+              [
+                -0.3,
+                39.36
+              ],
+              [
+                -0.4,
+                39.36
+              ],
+              [
+                -0.4,
+                39.3
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "pre": {
+    "start": "2024-10-05",
+    "end": "2024-10-28"
+  },
+  "post": {
+    "start": "2024-10-30",
+    "end": "2024-11-12"
+  },
+  "change_type": "flood",
+  "polarization": "VV",
+  "orbit_state": "DESCENDING",
+  "threshold_db": null,
+  "speckle": {
+    "method": "lee",
+    "window": 5
+  },
+  "min_mapping_unit_px": 8,
+  "resolution_m": 20,
+  "backend": "cdse_openeo"
+}
