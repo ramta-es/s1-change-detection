@@ -10,7 +10,9 @@ FROM python:3.12-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     S1CD_RUNS_DIR=/data/runs
-RUN useradd --create-home --uid 1000 app && mkdir -p /data/runs && chown -R app:app /data
+# rasterio's bundled GDAL links against libexpat, which python:*-slim does not ship
+RUN apt-get update && apt-get install -y --no-install-recommends libexpat1 && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 1000 app && mkdir -p /data/runs && chown -R app:app /data
 COPY --from=build /wheels /wheels
 RUN pip install --no-cache-dir /wheels/*.whl && rm -rf /wheels
 WORKDIR /home/app
