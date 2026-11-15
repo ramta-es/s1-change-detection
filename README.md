@@ -25,6 +25,8 @@ template behind the fixed-scope "Sentinel-1 change-detection pipeline" package I
 
 ## Two-minute demo (no credentials)
 
+Needs Python 3.11–3.13 (tested on all three in CI). With conda: `conda create -n s1cd python=3.13 && conda activate s1cd`.
+
 ```bash
 pip install -e ".[dev]"
 make demo                      # synthetic Sentinel-1-like scenes on a real AOI near Valencia

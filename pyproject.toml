@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,15 @@ version = "0.1.0"
 description = "Sentinel-1 SAR change detection (flood / ground disturbance) as a Dockerized FastAPI service on Copernicus Data Space openEO"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: FastAPI",
+    "Topic :: Scientific/Engineering :: GIS",
+]
 dependencies = [
     "fastapi>=0.115",
     "uvicorn[standard]>=0.30",
