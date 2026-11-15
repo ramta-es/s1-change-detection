@@ -95,7 +95,7 @@ class CdseOpenEOBackend:
             mask=False,
             contributing_area=False,
             local_incidence_angle=False,
-            ephemeris_correction=False,
+            ellipsoid_incidence_angle=False,
             noise_removal=True,
         )
         cube = cube.resample_spatial(
@@ -160,7 +160,8 @@ class CdseOpenEOBackend:
                 wc_path = workdir / "worldcover.tif"
                 self.build_worldcover(conn, req).download(wc_path, format="GTiff")
                 wc = read_to_grid(wc_path, req.grid, resampling=Resampling.nearest)
-                exclude = np.isfinite(wc) & (np.rint(wc).astype(int) == WORLDCOVER_WATER_CLASS)
+                classes = np.where(np.isfinite(wc), np.rint(wc), -1).astype(int)
+                exclude = classes == WORLDCOVER_WATER_CLASS
             except Exception as e:  # mask is a nice-to-have; do not fail the run
                 warnings.append(f"WorldCover water mask unavailable ({e.__class__.__name__}); relying on pre-image darkness only")
 

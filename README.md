@@ -29,7 +29,7 @@ template behind the fixed-scope "Sentinel-1 change-detection pipeline" package I
 pip install -e ".[dev]"
 make demo                      # synthetic Sentinel-1-like scenes on a real AOI near Valencia
 open runs/demo/preview.png
-pytest -q                      # 30 tests, a few seconds
+pytest -q                      # 32 tests, a few seconds
 ```
 
 Or through the API:
@@ -134,7 +134,7 @@ app/
   validate.py        confusion matrix against a reference mask
   backends/          cdse_openeo (openEO batch job), files (local GeoTIFFs), synthetic (tests/demo)
   processing/        geometry, speckle, change, stats, raster_io
-tests/               30 tests; the openEO backend is tested against a fake connection
+tests/               32 tests; the openEO backend is tested against a fake connection and its calls are bound against the real client signatures
 examples/            Valencia AOI, CDSE and synthetic requests
 ```
 
