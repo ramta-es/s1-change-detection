@@ -11,10 +11,26 @@ GET  /runs/{id}                               ->  changed_area_km2, changed_frac
 GET  /runs/{id}/mask.tif | diff_db.tif | preview.png
 ```
 
-![synthetic demo preview](docs/preview_synthetic.png)
+![Valencia DANA flood, Sentinel-1, Oct–Nov 2024](docs/valencia-2024/preview.png)
 
-*Synthetic demo: red = newly flooded, the dark lake (permanent water) is correctly ignored, the bright
-patch is not a flood. Outside-AOI pixels are dimmed.*
+*Real run, 15 Nov 2026, on Copernicus Data Space: the October 2024 DANA flood south of Valencia.
+Red = newly flooded (backscatter drop below the Otsu threshold of −4.5 dB), grey = post-event VV
+backscatter, black = the Albufera lagoon, which is permanent water and correctly left unflagged.
+4 pre-event and 2 post-event Sentinel-1 scenes, 20 m grid, 1 min 42 s of processing on the free tier.
+Full numbers in [`docs/valencia-2024/result.json`](docs/valencia-2024/result.json).*
+
+| Polygon | Area | Newly flooded | Share |
+| --- | ---: | ---: | ---: |
+| Horta Sud | 143.5 km² | 17.1 km² | 12.0 % |
+| North of the Albufera | 57.5 km² | 12.9 km² | 22.5 % |
+| **Total AOI** | **201.0 km²** | **30.1 km²** | **15.0 %** |
+
+Two things a careful reader should know about this map. First, the rice fields around the Albufera are
+deliberately flooded every November after the harvest, so part of the red in the southern polygon is
+seasonal rather than storm damage; a pre-window from the previous November separates the two (one line
+in the request). Second, the towns of Horta Sud were under mud rather than open water by the post
+window, and mud-covered urban fabric raises backscatter instead of lowering it, so that damage shows up
+in a second pass with `"change_type": "increase"`, not in this flood mask.
 
 ## Why this exists
 
@@ -31,7 +47,7 @@ Needs Python 3.11–3.13 (tested on all three in CI). With conda: `conda create 
 pip install -e ".[dev]"
 make demo                      # synthetic Sentinel-1-like scenes on a real AOI near Valencia
 open runs/demo/preview.png
-pytest -q                      # 32 tests, a few seconds
+pytest -q                      # 33 tests, a few seconds
 ```
 
 Or through the API:
@@ -56,7 +72,12 @@ curl -s localhost:8000/runs/7c1e.../mask.tif -o mask.tif
 ```
 
 `examples/request_cdse.json` is the October 2024 DANA flood south of Valencia (pre 5–28 Oct, post
-30 Oct–12 Nov, descending orbit, VV). A 200 km² AOI at 20 m runs in a few minutes on the free tier.
+30 Oct–12 Nov, descending orbit, VV); the map at the top of this page is its output. The 200 km² AOI at
+20 m took 1 min 42 s on the free tier (10,000 openEO credits per month come with every CDSE account).
+
+The synthetic backend reproduces the same scene layout without credentials
+([preview](docs/preview_synthetic.png)): a flood, a permanent lake that must not be flagged, and a
+bright patch that must not count as a flood. The tests run on it.
 
 ## Request
 
@@ -136,7 +157,7 @@ app/
   validate.py        confusion matrix against a reference mask
   backends/          cdse_openeo (openEO batch job), files (local GeoTIFFs), synthetic (tests/demo)
   processing/        geometry, speckle, change, stats, raster_io
-tests/               32 tests; the openEO backend is tested against a fake connection and its calls are bound against the real client signatures
+tests/               33 tests; the openEO backend is tested against a fake connection and its calls are bound against the real client signatures
 examples/            Valencia AOI, CDSE and synthetic requests
 ```
 

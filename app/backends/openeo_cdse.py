@@ -31,7 +31,7 @@ from .base import BackscatterStack, StackRequest
 log = logging.getLogger(__name__)
 
 COLLECTION = "SENTINEL1_GRD"
-WORLDCOVER_COLLECTION = "ESA_WORLDCOVER_10M_2021"
+WORLDCOVER_COLLECTION = "ESA_WORLDCOVER_10M_2021_V2"  # CDSE id; the un-suffixed name does not exist
 WORLDCOVER_WATER_CLASS = 80
 
 # Metadata property names used for load_collection filtering. Verify against

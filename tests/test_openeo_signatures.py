@@ -83,3 +83,11 @@ def test_resample_methods_are_documented_values(calls):
     spec_doc = inspect.getdoc(processes.resample_spatial) or ""  # bundled openEO process spec
     for m in methods:
         assert f"`{m}`" in spec_doc, f"resample method {m!r} not in the resample_spatial process spec"
+
+
+def test_collection_ids_are_the_cdse_names():
+    """Collection ids are not validated by the client; a wrong one only fails at job time on CDSE."""
+    from app.backends.openeo_cdse import COLLECTION, WORLDCOVER_COLLECTION
+
+    assert COLLECTION == "SENTINEL1_GRD"
+    assert WORLDCOVER_COLLECTION == "ESA_WORLDCOVER_10M_2021_V2"

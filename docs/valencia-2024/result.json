@@ -1,0 +1,38 @@
+{
+  "run_id": "068cafb7bf79",
+  "status": "completed",
+  "error": null,
+  "backend": "cdse_openeo",
+  "crs": "EPSG:32630",
+  "resolution_m": 20.0,
+  "n_pre_scenes": 4,
+  "n_post_scenes": 2,
+  "threshold_db": -4.50850455550477,
+  "threshold_source": "otsu",
+  "aoi_area_km2": 200.9524,
+  "valid_area_km2": 200.952,
+  "changed_area_km2": 30.0524,
+  "changed_fraction": 0.14955,
+  "polygons": [
+    {
+      "feature_id": "horta-sud",
+      "area_km2": 143.48960000000005,
+      "changed_area_km2": 17.1496,
+      "changed_fraction": 0.11951806960225685
+    },
+    {
+      "feature_id": "albufera-north",
+      "area_km2": 57.46280000000001,
+      "changed_area_km2": 12.902800000000003,
+      "changed_fraction": 0.22454335356685415
+    }
+  ],
+  "outputs": {
+    "mask_tif": "runs/068cafb7bf79/mask.tif",
+    "diff_tif": "runs/068cafb7bf79/diff_db.tif",
+    "preview_png": "runs/068cafb7bf79/preview.png"
+  },
+  "warnings": [
+    "WorldCover water mask unavailable (OpenEoApiError); relying on pre-image darkness only"
+  ]
+}
